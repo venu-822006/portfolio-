@@ -2,17 +2,18 @@
 ========================================================
   KV Reddy Portfolio — Flask Backend
   Author : Kurukunda Venugopal Reddy
-  Version: 1.0.0
+  Version: 1.0.1
 ========================================================
 
 Run:
-    pip install flask flask-cors
+    pip install flask flask-cors gunicorn
     python app.py
 
 API:
-    POST /api/contact  — saves & (optionally) emails the message
-    GET  /api/messages — view all saved messages (dev only)
-    GET  /api/health   — health check
+    GET  /              — home/status page
+    POST /api/contact   — saves & (optionally) emails the message
+    GET  /api/messages  — view all saved messages (dev only)
+    GET  /api/health    — health check
 ========================================================
 """
 
@@ -56,6 +57,12 @@ def is_valid_email(email: str) -> bool:
 
 
 # ── Routes ──────────────────────────────────────────────
+
+@app.route("/", methods=["GET"])
+def home():
+    """Root route to prevent 404 errors on the main URL."""
+    return "KV Reddy Portfolio API is running! 🚀"
+
 
 @app.route("/api/health", methods=["GET"])
 def health():
