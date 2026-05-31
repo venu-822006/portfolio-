@@ -150,10 +150,15 @@ def get_messages():
 
 # ── Run ─────────────────────────────────────────────────
 if __name__ == "__main__":
+    # Grab the port from the environment, fallback to 5000 for local dev
+    port = int(os.environ.get("PORT", 5000))
+    
     print("\n" + "="*50)
     print("  🚀 KV Reddy Portfolio Backend")
-    print("  Running on  : http://localhost:5000")
-    print("  Health check: http://localhost:5000/api/health")
-    print("  Messages    : http://localhost:5000/api/messages")
+    print(f"  Running on  : http://0.0.0.0:{port}")
+    print(f"  Health check: http://0.0.0.0:{port}/api/health")
+    print(f"  Messages    : http://0.0.0.0:{port}/api/messages")
     print("="*50 + "\n")
-    app.run(debug=True, port=5000)
+    
+    # Set host to 0.0.0.0 to expose the server, turn debug off for prod
+    app.run(host="0.0.0.0", port=port, debug=False)
